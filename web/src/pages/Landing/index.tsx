@@ -10,7 +10,7 @@ function Landing() {
             <div className="content-wrapper">
                 <img className="logo-img" src={ logoImg } alt="iBlood"/>
                 <main>
-                    <h1>Doe sangue com facilidade</h1>
+                    <h1>Doe amor para quem mais precisa</h1>
                     <p>Encontre o local mais próximo para fazer sua doação</p>
                 </main>
                 <div className="location">
