@@ -7,9 +7,9 @@ export default class BloodDonation {
     id: number;
     @Column()
     name: string;
-    @Column()
+    @Column({ type: 'decimal'})
     latitude: number;
-    @Column()
+    @Column({ type: 'decimal'})
     longitude: number;
     @Column()
     about: string;

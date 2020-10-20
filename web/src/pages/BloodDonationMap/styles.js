@@ -1,4 +1,3 @@
-import { Popup } from 'react-leaflet';
 import styled from 'styled-components';
 
 export const BloodDonationMapArea = styled.div `
@@ -7,6 +6,11 @@ export const BloodDonationMapArea = styled.div `
 
     display: flex;
     position: relative;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        justify-content: space-between;
+    }
 
     aside {
         width: 440px;
@@ -43,11 +47,30 @@ export const BloodDonationMapArea = styled.div `
                 font-weight: 800;
             }
         }
+        @media (max-width: 768px) {
+            width: 100%;
+            max-height: 20%;
+            padding: 1rem;
+            flex-direction: row;
+            justify-content: space-between;
+            header {
+                h2 {
+                margin-top: 1rem;
+                font-size: 2rem;
+                line-height: 2rem;
+            }
+            p{
+                font-size: 1.2rem;
+                line-height: 1.2rem;
+            }
+            }
+        }
     }
 
     .leaflet-container {
         z-index: 5;
-        ${Popup} {
+        .leaflet-popup {
+            z-index: 99999;
                 background: rgba(255, 255, 255, 0.95);
                 border-radius: 20px;
                 box-shadow: none;

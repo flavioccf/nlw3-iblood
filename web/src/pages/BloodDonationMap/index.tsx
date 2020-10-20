@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BloodDonationMapArea } from './styles';
 import mapMarkerImg from '../../images/map-marker.svg';
 import { Link } from 'react-router-dom';
-import { FiPlus, FiArrowRight } from 'react-icons/fi';
+import { FiArrowRight } from 'react-icons/fi';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 
 import 'leaflet/dist/leaflet.css'
@@ -51,7 +51,7 @@ function BloodDonationMap() {
             setUserLocation({
                 latitude: coords.latitude,
                 longitude: coords.longitude,
-                zoom: 9
+                zoom: 6.5
             })
         });
         api.get('blood_donations').then(response => {
@@ -70,8 +70,8 @@ function BloodDonationMap() {
                 </header>
 
                 <footer>
-                    <strong>Cidade</strong>
-                    <span>Estado</span>
+                    {/* <strong>Cidade</strong>
+                    <span>Estado</span> */}
                 </footer>
             </aside>
             <Map
@@ -89,7 +89,7 @@ function BloodDonationMap() {
                     icon={mapIcon}
                     position={[blood_donation.latitude, blood_donation.longitude]}
                 >
-                    <Popup closeButton={false} minWidth={240} maxWidth={240} className="map-poup">
+                    <Popup closeButton={false} className="map-poup">
                         {blood_donation.name}
                         <Link to={`blood_donation/${blood_donation.id}`}><FiArrowRight size={20} color="#FFF"/></Link>
                     </Popup>
@@ -98,9 +98,9 @@ function BloodDonationMap() {
                 })}                
             </Map>
 
-            <Link to="/blood_donation/create" className="create-blood-donation">
+            {/* <Link to="/blood_donation/create" className="create-blood-donation">
                 <FiPlus size={32} color="#FFF"/>
-            </Link>
+            </Link> */}
         </BloodDonationMapArea>
     );
 }

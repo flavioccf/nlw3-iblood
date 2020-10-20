@@ -7,7 +7,6 @@ min-height: 100vh;
 main {
     flex: 1;
 }
-
 `;
 
 export const BloodDonationDetails=styled.div ` width: 700px;
@@ -18,6 +17,14 @@ border: 1px solid #D3E2E5;
 border-radius: 20px;
 
 overflow: hidden;
+
+width: 80%;
+
+@media (max-width: 768px) {
+    margin: 64px 0.5rem;
+    width: calc(100% - 0.5rem);
+    padding: 0;
+}
 
 >img {
     width: 100%;
@@ -108,7 +115,7 @@ overflow: hidden;
         margin-top: 24px;
 
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
         column-gap: 20px;
 
         .hour {
@@ -161,6 +168,8 @@ overflow: hidden;
             background: #36CF82;
         }
     }
-
+    @media (max-width: 768px) {
+        padding: 1rem;
+    }
 }
 `;

@@ -25,14 +25,10 @@ export class createBloodDonations1602639375051 implements MigrationInterface {
         {
           name: 'latitude',
           type: 'decimal',
-          scale: 10,
-          precision: 2
         },
         {
           name: 'longitude',
           type: 'decimal',
-          scale: 10,
-          precision: 2
         },
         {
           name: 'about',

@@ -1,15 +1,11 @@
-
-
-
-
 const geoLocation = () => {
     const options = {
         enableHighAccuracy: true,
-        timeout: 5000,
+        timeout: 10000,
         maximumAge: 0
       };
 
-    const timeout = new Promise((resolve, reject) => {
+      const timeout = new Promise((_resolve, reject) => {
         setTimeout(reject, 10000, 'Wait 5 seconds to find location');
       });
       const geo = new Promise(function (resolve, reject) {

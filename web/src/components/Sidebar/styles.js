@@ -11,6 +11,15 @@ flex-direction: column;
 justify-content: space-between;
 align-items: center;
 
+@media (max-width: 768px) {
+    position: absolute;
+        width: 100%;
+        height: 4rem;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+
 img {
     width: 48px;
 }

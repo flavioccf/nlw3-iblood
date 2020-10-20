@@ -10,7 +10,7 @@ export const PageLanding = styled.div `
     align-items: center;
     
     .content-wrapper {
-        margin: 1rem;
+        padding: 1rem;
         position: relative;
 
         width: 100%;
@@ -34,15 +34,18 @@ export const PageLanding = styled.div `
         main {
             max-width: 350px;
             h1 {
-                font-size: 76px;
+                font-size: 6rem;
                 font-weight: 900;
-                line-height: 70px;
+                line-height: 6rem;
             }
             p {
                 margin-top: 40px;
                 font-weight: 600;
-                font-size: 24px;
+                font-size: 2rem;
                 line-height: 34px;
+                @media (max-width: 568px) {
+                    width: 50%;
+                }
             }
         }
 
@@ -66,8 +69,8 @@ export const PageLanding = styled.div `
 
         .enter-app {
             position: absolute;
-            right: 0;
-            bottom: 0;
+            right: 0.3rem;
+            bottom: 0.3rem;
 
             width: 80px;
             height: 80px;

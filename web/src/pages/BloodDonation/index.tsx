@@ -1,48 +1,61 @@
-import React from "react";
-import { FaWhatsapp } from "react-icons/fa";
-import { FiClock, FiInfo } from "react-icons/fi";
+import React, { useEffect, useState } from "react";
+import { FiClock } from "react-icons/fi";
 import { Map, Marker, TileLayer } from "react-leaflet";
 
 import Sidebar from "../../components/Sidebar";
 import { BloodDonationDetails, PageBloodDonation } from "./styles";
 import mapIcon from "../../utils/mapIcon";
+import api from "../../services/api";
+import { useParams } from "react-router-dom";
+
+interface BloodDonation {
+  id: number;
+  latitude: number;
+  longitude: number;
+  name: string;
+  about: string;
+  instructions: string;
+  work_hours: string;
+  images: Array<{
+    url: string;
+  }>
+}
+
+interface BloodDonationParams {
+  id: string;
+}
 
 export default function BloodDonation() {
+  const params = useParams<BloodDonationParams>();
+  const [blood_donations, setBloodDonation] = useState<BloodDonation>();
+
+  useEffect(() => {
+    api.get(`blood_donations/${params.id}`).then(response => {
+      console.log(response.data);
+      setBloodDonation(response.data);
+  }).catch(error => {
+    throw new Error(error);
+  });
+  },[params.id]);
+
+  if (!blood_donations) {
+    return <p>Carregando...</p>
+  }
+
   return (
     <PageBloodDonation>
       <Sidebar></Sidebar>
       <main>
         <BloodDonationDetails>
-          <img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar das meninas" />
-
-          <div className="images">
-            <button className="active" type="button">
-              <img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar das meninas" />
-            </button>
-            <button type="button">
-              <img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar das meninas" />
-            </button>
-            <button type="button">
-              <img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar das meninas" />
-            </button>
-            <button type="button">
-              <img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar das meninas" />
-            </button>
-            <button type="button">
-              <img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar das meninas" />
-            </button>
-            <button type="button">
-              <img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar das meninas" />
-            </button>
-          </div>
+          <img src={blood_donations.images[0].url} alt="Lar das meninas" />
           
           <div className="orphanage-details-content">
-            <h1>Lar das meninas</h1>
-            <p>Presta assistência a crianças de 06 a 15 anos que se encontre em situação de risco e/ou vulnerabilidade social.</p>
+          <h1>{blood_donations.name}</h1>
+        <p>{ blood_donations.about }</p>
 
             <div className="map-container">
               <Map 
-                center={[-27.2092052,-49.6401092]} 
+                center={[blood_donations.latitude, blood_donations.longitude]} 
                 zoom={16} 
                 style={{ width: '100%', height: 280 }}
                 dragging={false}
@@ -54,36 +67,25 @@ export default function BloodDonation() {
                 <TileLayer 
                   url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
                 />
-                <Marker interactive={false} icon={mapIcon} position={[-27.2092052,-49.6401092]} />
+                <Marker interactive={false} icon={mapIcon} position={[blood_donations.latitude, blood_donations.longitude]} />
               </Map>
 
               <footer>
-                <a href="#">Ver rotas no Google Maps</a>
+                <a rel="noopener noreferrer" target="_blank" href={`https://www.google.com/maps/@${blood_donations.latitude},${blood_donations.longitude},17z`}>Ver rotas no Google Maps</a>
               </footer>
             </div>
 
             <hr />
 
             <h2>Instruções para visita</h2>
-            <p>Venha como se sentir mais à vontade e traga muito amor para dar.</p>
+        <p>{ blood_donations.instructions}</p>
 
             <div className="open-details">
               <div className="hour">
                 <FiClock size={32} color="#15B6D6" />
-                Segunda à Sexta <br />
-                8h às 18h
-              </div>
-              <div className="open-on-weekends">
-                <FiInfo size={32} color="#39CC83" />
-                Atendemos <br />
-                fim de semana
+                {blood_donations.work_hours}
               </div>
             </div>
-
-            <button type="button" className="contact-button">
-              <FaWhatsapp size={20} color="#FFF" />
-              Entrar em contato
-            </button>
           </div>
         </BloodDonationDetails>
       </main>
