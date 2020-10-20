@@ -8,6 +8,10 @@
 
 <br />
 
+## Publicação
+
+Este material está publicado na página [iBlood - Vercel](https://nlw3-iblood.vercel.app)
+
 ## Conteúdo
 
 - [Sobre](#sobre)
